@@ -48,7 +48,6 @@ dependencies {
 
     // Required only if Facebook login support is required
     compile('com.facebook.android:facebook-android-sdk:4.22.1')
-
 }
 
 apply plugin: 'com.google.gms.google-services'
