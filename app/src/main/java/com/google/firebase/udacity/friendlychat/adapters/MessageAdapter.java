@@ -1,4 +1,4 @@
-package com.google.firebase.udacity.friendlychat;
+package com.google.firebase.udacity.friendlychat.adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.udacity.friendlychat.FriendlyMessage;
+import com.google.firebase.udacity.friendlychat.R;
 
 import java.util.List;
 
