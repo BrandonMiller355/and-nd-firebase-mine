@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/restaurants"
+            android:checked="false"
+            android:icon="@drawable/ic_restaurant_black_24dp"
+            android:title="@string/restaurants" />
+
+        <item
+            android:id="@+id/chat"
+            android:checked="false"
+            android:icon="@drawable/ic_chat_black_24dp"
+            android:title="@string/chat" />
+    </group>
+</menu>
