@@ -6,4 +6,6 @@
     <string name="facebook_login_protocol_scheme">fb347390172342567</string>
     <string name="chat">Chat</string>
     <string name="restaurants">Restaurants</string>
+    <string name="restaurant_add">Add Restaurant</string>
+    <string name="restaurant_added">Restaurant Added</string>
 </resources>
