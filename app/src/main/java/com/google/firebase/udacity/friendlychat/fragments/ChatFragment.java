@@ -1,6 +1,5 @@
 package com.google.firebase.udacity.friendlychat.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,7 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.udacity.friendlychat.FriendlyMessage;
+import com.google.firebase.udacity.friendlychat.models.FriendlyMessage;
 import com.google.firebase.udacity.friendlychat.R;
 import com.google.firebase.udacity.friendlychat.adapters.MessageAdapter;
 

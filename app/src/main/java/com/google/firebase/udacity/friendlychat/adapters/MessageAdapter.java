@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.google.firebase.udacity.friendlychat.FriendlyMessage;
+import com.google.firebase.udacity.friendlychat.models.FriendlyMessage;
 import com.google.firebase.udacity.friendlychat.R;
 
 import java.util.List;
