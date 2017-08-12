@@ -28,6 +28,7 @@ import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
 import com.google.firebase.udacity.friendlychat.fragments.ChatFragment;
+import com.google.firebase.udacity.friendlychat.fragments.RestaurantsFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -91,6 +92,10 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),"Restaurants Selected",Toast.LENGTH_SHORT).show();
 
                             toolbar.setTitle(R.string.restaurants);
+
+                            getFragmentManager().beginTransaction()
+                                    .replace(R.id.frame, new RestaurantsFragment())
+                                    .commit();
 
                             return true;
                         default:

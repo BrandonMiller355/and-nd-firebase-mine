@@ -45,7 +45,7 @@ public class ChatFragment extends Fragment {
     public ChatFragment() {
     }
 
-    private static final String TAG = "MainActivity";
+    private static final String TAG = ChatFragment.class.getSimpleName();
 
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
