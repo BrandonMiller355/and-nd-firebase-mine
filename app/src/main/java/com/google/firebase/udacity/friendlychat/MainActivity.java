@@ -15,10 +15,13 @@
  */
 package com.google.firebase.udacity.friendlychat;
 
+import android.app.Application;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             // Initializing Toolbar and setting it as the actionbar
             toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            toolbar.setTitle(R.string.app_name);
 
             //Initializing NavigationView
             navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -72,34 +76,21 @@ public class MainActivity extends AppCompatActivity {
 
                         //Replacing the main content with ContentFragment Which is our Inbox View;
                         case R.id.chat:
-                            Toast.makeText(getApplicationContext(),"Chat Selected",Toast.LENGTH_SHORT).show();
-//                            ChatFragment fragment = new ChatFragment();
-//                            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//                            fragmentTransaction.replace(R.id.container, fragment);
-//                            fragmentTransaction.commit();
-
                             toolbar.setTitle(R.string.chat);
-
                             getFragmentManager().beginTransaction()
-                                    .replace(R.id.frame, new ChatFragment())
+                                    .replace(R.id.frame, new ChatFragment(), getResources().getString(R.string.chat))
+                                    .addToBackStack(null)
                                     .commit();
-
                             return true;
-
-                        // For rest of the options we just show a toast on click
-
                         case R.id.restaurants:
-                            Toast.makeText(getApplicationContext(),"Restaurants Selected",Toast.LENGTH_SHORT).show();
-
                             toolbar.setTitle(R.string.restaurants);
-
                             getFragmentManager().beginTransaction()
-                                    .replace(R.id.frame, new RestaurantsFragment())
+                                    .replace(R.id.frame, new RestaurantsFragment(), getResources().getString(R.string.restaurants))
+                                    .addToBackStack(null)
                                     .commit();
-
                             return true;
                         default:
-                            Toast.makeText(getApplicationContext(),"Somethings Wrong",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(),"Error. Please notify developer.",Toast.LENGTH_SHORT).show();
                             return true;
                     }
                 }
@@ -129,13 +120,27 @@ public class MainActivity extends AppCompatActivity {
             //calling sync state is necessay or else your hamburger icon wont show up
             actionBarDrawerToggle.syncState();
 
-            //TODO: Brandon - this part necessary?
             getFragmentManager().beginTransaction()
-                    .replace(R.id.frame, new ChatFragment())
+                    .replace(R.id.frame, new ChatFragment(), getResources().getString(R.string.chat))
+                    .addToBackStack(null)
                     .commit();
         }
     }
 
-    //TODO: Brandon - get the menu options working again
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            //TODO: Brandon - add "are you sure you want to exit?" dialog / get this working correctly
+            Fragment fragment = getFragmentManager().findFragmentByTag(getResources().getString(R.string.chat));
+
+            if (fragment != null && fragment.isVisible()) {
+                Toast.makeText(this, "Don't leave me!!!", Toast.LENGTH_SHORT).show();
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
 }
 

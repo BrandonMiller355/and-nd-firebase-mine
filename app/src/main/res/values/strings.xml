@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Friendly Chat</string>
+    <string name="app_name">What\'s for Lunch?</string>
     <string name="sign_out">Sign Out</string>
     <string name="send_button_label">Send</string>
     <string name="facebook_application_id">347390172342567</string>
@@ -8,4 +8,6 @@
     <string name="restaurants">Restaurants</string>
     <string name="restaurant_add">Add Restaurant</string>
     <string name="restaurant_added">Restaurant Added</string>
+    <string name="restaurant_name">Restaurant Name *</string>
+    <string name="restaurant_category">Category</string>
 </resources>

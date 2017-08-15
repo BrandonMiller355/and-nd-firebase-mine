@@ -74,8 +74,13 @@ public class RestaurantsFragment extends Fragment {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Oh hi", Toast.LENGTH_SHORT).show();
 
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame, RestaurantFragment.newInstance("blah"))
+                        .addToBackStack(null)
+                        .commit();
+
+                /*
 
                 final EditText et = new EditText(getActivity());
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -127,6 +132,7 @@ public class RestaurantsFragment extends Fragment {
 //
 //                // Clear input box
 //                mMessageEditText.setText("");
+               */
             }
         });
 
