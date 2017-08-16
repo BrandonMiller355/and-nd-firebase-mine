@@ -40,7 +40,7 @@ import java.util.List;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
-public class ChatFragment extends Fragment {
+public class ChatFragment extends BaseFragment {
 
     public ChatFragment() {
     }
@@ -77,8 +77,11 @@ public class ChatFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //super.onCreateView(inflater, container, savedInstanceState);
+        super.onCreateView(R.layout.fragment_chat, inflater, container);
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
+
+//        super.onCreateView(inflater, container, savedInstanceState);
+//        View view = inflater.inflate(R.layout.fragment_chat, container, false);
 
         mUsername = ANONYMOUS;
 

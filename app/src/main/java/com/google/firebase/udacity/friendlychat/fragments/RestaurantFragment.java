@@ -15,6 +15,7 @@ import com.google.firebase.udacity.friendlychat.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class RestaurantFragment extends Fragment {
 
@@ -26,7 +27,7 @@ public class RestaurantFragment extends Fragment {
 
     //TODO: Brandon - see if I need this or not
 //    // Firebase instance variables.
-//    private FirebaseDatabase mFirebaseDatabase;
+//    private FirebaseDatabase firebaseDatabase;
 //    private DatabaseReference mRestaurantsDatabaseReference;
 //    private ChildEventListener mChildEventListener;
 
@@ -51,15 +52,22 @@ public class RestaurantFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         ButterKnife.bind(this, view);
 
+        //TODO: Brandon - populate this from categories from db. Change these in Settings?
         String[] categories = {"Mexican", "Italian"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(),android.R.layout.select_dialog_singlechoice, categories);
-        //Find TextView control
-        AutoCompleteTextView acTextView = (AutoCompleteTextView) view.findViewById(R.id.category);
-        //Set the number of characters the user must type before the drop down list is shown
-        acTextView.setThreshold(1);
-        acTextView.showDropDown();
-        //Set the adapter
-        acTextView.setAdapter(adapter);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //Find TextView control
+//        AutoCompleteTextView acTextView = (AutoCompleteTextView) view.findViewById(R.id.category);
+//        //Set the number of characters the user must type before the drop down list is shown
+//        acTextView.setThreshold(1);
+//        acTextView.showDropDown();
+//        //Set the adapter
+//        acTextView.setAdapter(adapter);
+
+        MaterialSpinner spinner = (MaterialSpinner) view.findViewById(R.id.category);
+        spinner.setAdapter(adapter);
+
+
 
         name.requestFocus();
         InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -69,9 +77,9 @@ public class RestaurantFragment extends Fragment {
 
 
 //        // Initialize Firebase components.
-//        mFirebaseDatabase = FirebaseDatabase.getInstance();
+//        firebaseDatabase = FirebaseDatabase.getInstance();
 //
-//        mRestaurantsDatabaseReference = mFirebaseDatabase.getReference().child("restaurant_categories");
+//        mRestaurantsDatabaseReference = firebaseDatabase.getReference().child("restaurant_categories");
 
 //        //TODO: Brandon - this is probably not the best place for this...
 //        attachDatabaseReadListener();

@@ -47,6 +47,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     // Required only if Facebook login support is required
     compile 'com.facebook.android:facebook-android-sdk:4.22.1'
+
+    //Material design
+    compile 'com.github.ganfra:material-spinner:1.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
