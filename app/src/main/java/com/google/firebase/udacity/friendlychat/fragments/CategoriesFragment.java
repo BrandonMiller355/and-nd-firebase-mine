@@ -1,19 +1,26 @@
 package com.google.firebase.udacity.friendlychat.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.udacity.friendlychat.R;
 import com.google.firebase.udacity.friendlychat.adapters.RestaurantsAdapter;
 import com.google.firebase.udacity.friendlychat.models.Restaurant;
@@ -21,74 +28,68 @@ import com.google.firebase.udacity.friendlychat.models.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantsFragment extends Fragment {
+import static android.R.attr.maxLength;
 
-    private static final String TAG = RestaurantsFragment.class.getSimpleName();
+public class CategoriesFragment extends Fragment {
 
-    private ListView restaurantsListView;
-    private FloatingActionButton fabAddRestaurant;
+    private static final String TAG = CategoriesFragment.class.getSimpleName();
 
-    private RestaurantsAdapter mRestaurantsAdapter;
+    private ListView categoriesListView;
+    private FloatingActionButton fabAddCategory;
+
+    //TODO: Brandon - shouldn't need custom adapter
+    //private Adapter mCategoriesAdapter;
+    private ArrayAdapter<String> mCategoriesAdapter;
 
     // Firebase instance variables.
     private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mRestaurantsDatabaseReference;
+    private DatabaseReference mCategoriesDatabaseReference;
     private ChildEventListener mChildEventListener;
 //    private FirebaseAuth mFirebaseAuth;
 //    private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    public RestaurantsFragment() {
+    public CategoriesFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_restaurants, container, false);
+        View view = inflater.inflate(R.layout.fragment_categories, container, false);
 
         // Initialize Firebase components.
         mFirebaseDatabase = FirebaseDatabase.getInstance();
 
-        mRestaurantsDatabaseReference = mFirebaseDatabase.getReference().child("restaurants");
+        mCategoriesDatabaseReference = mFirebaseDatabase.getReference().child("categories");
 
-        //TODO: Brandon - this is probably not the best place for this...
+//        //TODO: Brandon - this is probably not the best place for this...
         attachDatabaseReadListener();
 
-        restaurantsListView = (ListView) view.findViewById(R.id.listview_restaurants);
-        fabAddRestaurant = (FloatingActionButton) view.findViewById(R.id.fab_add_restaurant);
+        categoriesListView = (ListView) view.findViewById(R.id.listview_categories);
+        fabAddCategory = (FloatingActionButton) view.findViewById(R.id.fab_add_category);
 
+        //TODO: Brandon - clean this up
         // Initialize message ListView and its adapter
-        List<Restaurant> restaurantList = new ArrayList<>();
-        mRestaurantsAdapter = new RestaurantsAdapter(getActivity(), R.layout.item_restaurant, restaurantList);
-        restaurantsListView.setAdapter(mRestaurantsAdapter);
+//        List<Restaurant> restaurantList = new ArrayList<>();
+//        mRestaurantsAdapter = new RestaurantsAdapter(getActivity(), R.layout.item_restaurant, restaurantList);
+//        restaurantsListView.setAdapter(mRestaurantsAdapter);
+
+        List<String> categoryList = new ArrayList<>();
+
+        //TODO: Brandon - see if can do this. Load list of categories into string array
+        //categoryList = mCategoriesDatabaseReference.
+
+        mCategoriesAdapter = new ArrayAdapter<String>(getActivity(), R.layout.item_category, categoryList);
+        categoriesListView.setAdapter(mCategoriesAdapter);
+
 
         // FAB button sends a message and clears the EditText
-        fabAddRestaurant.setOnClickListener(new View.OnClickListener() {
+        fabAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                DatabaseReference categoriesDatabaseReference = mFirebaseDatabase.getReference().child("categories");
-                categoriesDatabaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<String> categoriesList = new ArrayList<String>();
-
-                        for(DataSnapshot categorySnapshot : dataSnapshot.getChildren()) {
-                            categoriesList.add(categorySnapshot.getValue(String.class));
-                        }
-
-                        getFragmentManager().beginTransaction()
-                                .replace(R.id.frame, RestaurantFragment.newInstance("blah", categoriesList))
-                                .addToBackStack(null)
-                                .commit();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-
-                /*
+//                getFragmentManager().beginTransaction()
+//                        .replace(R.id.frame, RestaurantFragment.newInstance("blah"))
+//                        .addToBackStack(null)
+//                        .commit();
 
                 final EditText et = new EditText(getActivity());
                 RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -101,7 +102,7 @@ public class RestaurantsFragment extends Fragment {
                 rl.addView(et);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle(getString(R.string.restaurant_add));
+                builder.setTitle(getString(R.string.category_add));
                 //builder.setMessage(getString(R.string.dialog_message));
                 builder.setView(rl);
                 String positiveText = getString(android.R.string.ok);
@@ -112,10 +113,11 @@ public class RestaurantsFragment extends Fragment {
                                 // positive button logic
                                 if(et.getText().toString().length() > 0) {
                                     dialog.dismiss();
-                                    Restaurant restaurant = new Restaurant(et.getText().toString());
-                                    mRestaurantsDatabaseReference.push().setValue(restaurant);
+                                    //Restaurant restaurant = new Restaurant(et.getText().toString());
+                                    mCategoriesDatabaseReference.push().setValue(et.getText().toString());
+
                                     //TODO: Brandon - snackbar isn't showing up for some reason
-                                    Snackbar.make(getView(), R.string.restaurant_added, Snackbar.LENGTH_SHORT);
+                                    Snackbar.make(getView(), R.string.category_added, Snackbar.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -140,7 +142,6 @@ public class RestaurantsFragment extends Fragment {
 //
 //                // Clear input box
 //                mMessageEditText.setText("");
-               */
             }
         });
 
@@ -152,8 +153,8 @@ public class RestaurantsFragment extends Fragment {
             mChildEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    Restaurant restaurant = dataSnapshot.getValue(Restaurant.class);
-                    mRestaurantsAdapter.add(restaurant);
+                    String category = dataSnapshot.getValue(String.class);
+                    mCategoriesAdapter.add(category);
                 }
 
                 @Override
@@ -173,13 +174,13 @@ public class RestaurantsFragment extends Fragment {
                 }
             };
 
-            mRestaurantsDatabaseReference.addChildEventListener(mChildEventListener);
+            mCategoriesDatabaseReference.addChildEventListener(mChildEventListener);
         }
     }
 
     private void detachDatabaseReadListener() {
         if (mChildEventListener != null) {
-            mRestaurantsDatabaseReference.removeEventListener(mChildEventListener);
+            mCategoriesDatabaseReference.removeEventListener(mChildEventListener);
             mChildEventListener = null;
         }
     }

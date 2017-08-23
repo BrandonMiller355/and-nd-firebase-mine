@@ -12,5 +12,11 @@
             android:checked="true"
             android:icon="@drawable/ic_chat_black_24dp"
             android:title="@string/chat" />
+
+        <item
+            android:id="@+id/categories"
+            android:checked="false"
+            android:icon="@drawable/ic_categories"
+            android:title="@string/categories" />
     </group>
 </menu>

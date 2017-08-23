@@ -10,4 +10,8 @@
     <string name="restaurant_added">Restaurant Added</string>
     <string name="restaurant_name">Restaurant Name *</string>
     <string name="restaurant_category">Category</string>
+    <string name="category_edit">Edit Categories</string>
+    <string name="category_add">Add Category</string>
+    <string name="category_added">Category Added</string>
+    <string name="categories">Categories</string>
 </resources>

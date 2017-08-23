@@ -30,6 +30,7 @@ import android.view.View;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import com.google.firebase.udacity.friendlychat.fragments.CategoriesFragment;
 import com.google.firebase.udacity.friendlychat.fragments.ChatFragment;
 import com.google.firebase.udacity.friendlychat.fragments.RestaurantsFragment;
 
@@ -86,6 +87,13 @@ public class MainActivity extends AppCompatActivity {
                             toolbar.setTitle(R.string.restaurants);
                             getFragmentManager().beginTransaction()
                                     .replace(R.id.frame, new RestaurantsFragment(), getResources().getString(R.string.restaurants))
+                                    .addToBackStack(null)
+                                    .commit();
+                            return true;
+                        case R.id.categories:
+                            toolbar.setTitle(R.string.categories);
+                            getFragmentManager().beginTransaction()
+                                    .replace(R.id.frame, new CategoriesFragment(), getResources().getString(R.string.categories))
                                     .addToBackStack(null)
                                     .commit();
                             return true;

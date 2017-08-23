@@ -12,6 +12,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 
 import com.google.firebase.udacity.friendlychat.R;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +28,7 @@ public class RestaurantFragment extends Fragment {
     private static final String TAG = RestaurantFragment.class.getSimpleName();
 
     public static String ARG_RESTAURANT_ID = "restaurantId";
+    public static String ARG_CATEGORIES_LIST = "categories";
 
     @BindView(R.id.name) EditText name;
 
@@ -34,10 +41,11 @@ public class RestaurantFragment extends Fragment {
     public RestaurantFragment() {
     }
 
-    public static RestaurantFragment newInstance(String restaurantId) {
+    public static RestaurantFragment newInstance(String restaurantId, List<String> categories) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
         args.putString(ARG_RESTAURANT_ID, restaurantId);
+        args.putString(ARG_CATEGORIES_LIST, new Gson().toJson(categories));
         fragment.setArguments(args);
         return fragment;
     }
@@ -53,9 +61,15 @@ public class RestaurantFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         //TODO: Brandon - populate this from categories from db. Change these in Settings?
-        String[] categories = {"Mexican", "Italian"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_spinner_item, categories);
+        List<String> categories = (List<String>)Arrays.asList(getArguments().getSerializable(ARG_CATEGORIES_LIST).toString().split("\\s*\",\"\\s*"));
+        categories.set(0, categories.get(0).replace("[", "").replace("\"", ""));
+        categories.set(categories.size()-1, categories.get(categories.size()-1).replace("]", "").replace("\"", ""));
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_item,
+                categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
 //        //Find TextView control
 //        AutoCompleteTextView acTextView = (AutoCompleteTextView) view.findViewById(R.id.category);
 //        //Set the number of characters the user must type before the drop down list is shown

@@ -12,3 +12,11 @@ Setup requires creating a Firebase project. See https://firebase.google.com/ for
 
 ## License
 See [LICENSE](LICENSE)
+
+## TODO:
+ - Get base fragment working (?)
+ - Get snackbar working
+ - Fix buttons in alert dialog
+ - Allow a restaurant to have multiple categories
+ - Create like "Portals" or something, and segregate messages to just those members of your portal
+ - 
