@@ -15,8 +15,11 @@ See [LICENSE](LICENSE)
 
 ## TODO:
  - Get base fragment working (?)
- - Get snackbar working
- - Fix buttons in alert dialog
  - Allow a restaurant to have multiple categories
  - Create like "Portals" or something, and segregate messages to just those members of your portal
- - 
+ - Update model to handle category / categories
+ - Add "Save" menu option to Restaurant fragment
+ - Figure out a color scheme
+ - Build out a home screen that allows filtering by distance and categories, then shows the list of matches. Then, allows a random selection from those.
+ - Add voting system
+ - Add ability to have app recommend places that haven't been chosen in a long time

@@ -101,7 +101,7 @@ public class CategoriesFragment extends Fragment {
                 RelativeLayout rl = new RelativeLayout(getActivity());
                 rl.addView(et);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext(), R.style.DialogTheme);
                 builder.setTitle(getString(R.string.category_add));
                 //builder.setMessage(getString(R.string.dialog_message));
                 builder.setView(rl);

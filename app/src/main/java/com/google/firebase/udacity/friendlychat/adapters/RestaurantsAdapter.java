@@ -12,7 +12,12 @@ import com.google.firebase.udacity.friendlychat.models.Restaurant;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
+
+    @BindView(R.id.nameTextView) TextView nameTextView;
+    //@BindView(R.id.category)
 
     public RestaurantsAdapter(Context context, int resource, List<Restaurant> objects) {
         super(context, resource, objects);
@@ -26,7 +31,7 @@ public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
 //        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
 //        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
-        TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        //TextView nameTextView = (TextView) convertView.findViewById(R.id.nameTextView);
 
         Restaurant restaurant = getItem(position);
 
