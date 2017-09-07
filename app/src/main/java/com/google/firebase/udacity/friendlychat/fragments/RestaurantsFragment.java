@@ -21,6 +21,8 @@ import com.google.firebase.udacity.friendlychat.models.Restaurant;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 public class RestaurantsFragment extends Fragment {
 
     private static final String TAG = RestaurantsFragment.class.getSimpleName();

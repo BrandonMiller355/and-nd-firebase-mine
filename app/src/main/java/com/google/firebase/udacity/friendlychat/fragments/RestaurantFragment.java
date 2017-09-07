@@ -3,19 +3,24 @@ package com.google.firebase.udacity.friendlychat.fragments;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.udacity.friendlychat.R;
+import com.google.firebase.udacity.friendlychat.models.Restaurant;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,7 +35,12 @@ public class RestaurantFragment extends Fragment {
     public static String ARG_RESTAURANT_ID = "restaurantId";
     public static String ARG_CATEGORIES_LIST = "categories";
 
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mRestaurantsDatabaseReference;
+
     @BindView(R.id.name) EditText name;
+    @BindView(R.id.category) Spinner category;
+
 
     //TODO: Brandon - see if I need this or not
 //    // Firebase instance variables.
@@ -53,12 +63,20 @@ public class RestaurantFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_restaurant, container, false);
         ButterKnife.bind(this, view);
+
+        // TODO - Brandon: Move all these somewhere else methinks
+        // Initialize Firebase components.
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+
+        mRestaurantsDatabaseReference = mFirebaseDatabase.getReference().child("restaurants");
 
         //TODO: Brandon - populate this from categories from db. Change these in Settings?
         List<String> categories = (List<String>)Arrays.asList(getArguments().getSerializable(ARG_CATEGORIES_LIST).toString().split("\\s*\",\"\\s*"));
@@ -113,6 +131,33 @@ public class RestaurantFragment extends Fragment {
 //                mMessageEditText.setText("");
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.restaurant_menu, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_restaurant_menu:
+                // Save
+
+                Restaurant restaurant = new Restaurant(name.getText().toString(), category.getSelectedItem().toString());
+                mRestaurantsDatabaseReference.push().setValue(restaurant);
+
+                Snackbar.make(getView(), R.string.restaurant_added, Snackbar.LENGTH_LONG).show();
+
+                getFragmentManager().beginTransaction()
+                        .replace(R.id.frame, new RestaurantsFragment(), getResources().getString(R.string.restaurants))
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 //    private void attachDatabaseReadListener() {

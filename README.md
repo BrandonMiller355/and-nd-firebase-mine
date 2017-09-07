@@ -23,3 +23,4 @@ See [LICENSE](LICENSE)
  - Build out a home screen that allows filtering by distance and categories, then shows the list of matches. Then, allows a random selection from those.
  - Add voting system
  - Add ability to have app recommend places that haven't been chosen in a long time
+ - Save the category ID instead of the category name

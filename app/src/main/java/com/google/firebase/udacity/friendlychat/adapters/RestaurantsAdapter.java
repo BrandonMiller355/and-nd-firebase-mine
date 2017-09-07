@@ -13,6 +13,7 @@ import com.google.firebase.udacity.friendlychat.models.Restaurant;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
@@ -21,6 +22,8 @@ public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
     public RestaurantsAdapter(Context context, int resource, List<Restaurant> objects) {
         super(context, resource, objects);
+
+
     }
 
     @Override
@@ -28,6 +31,9 @@ public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
         if (convertView == null) {
             convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_restaurant, parent, false);
         }
+
+        //TODO:Brandon - Is this the best way to do this?
+        ButterKnife.bind(this, convertView);
 
 //        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
 //        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
