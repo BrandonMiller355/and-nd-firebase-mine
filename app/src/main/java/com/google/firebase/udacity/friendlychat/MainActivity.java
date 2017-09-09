@@ -27,6 +27,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
@@ -70,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
 
                     //Closing drawer on item click
                     drawerLayout.closeDrawers();
+
+                    //Closing keyboard on item click
+                    InputMethodManager imm = (InputMethodManager)getSystemService(getApplicationContext().INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(navigationView.getWindowToken(), 0);
+
 
                     //Check to see which item was being clicked and perform appropriate action
                     switch (menuItem.getItemId()){

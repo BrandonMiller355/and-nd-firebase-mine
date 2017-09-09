@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
 
 public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
-    @BindView(R.id.nameTextView) TextView nameTextView;
+    @BindView(R.id.restaurantName) TextView nameTextView;
     //@BindView(R.id.category)
 
     public RestaurantsAdapter(Context context, int resource, List<Restaurant> objects) {
@@ -34,6 +35,15 @@ public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
 
         //TODO:Brandon - Is this the best way to do this?
         ButterKnife.bind(this, convertView);
+
+        convertView.setClickable(true);
+        convertView.setOnClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
 
 //        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
 //        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);

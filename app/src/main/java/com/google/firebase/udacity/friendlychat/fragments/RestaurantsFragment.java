@@ -78,7 +78,7 @@ public class RestaurantsFragment extends Fragment {
                         }
 
                         getFragmentManager().beginTransaction()
-                                .replace(R.id.frame, RestaurantFragment.newInstance("blah", categoriesList))
+                                .replace(R.id.frame, RestaurantFragment.newInstance("", "", categoriesList))
                                 .addToBackStack(null)
                                 .commit();
                     }

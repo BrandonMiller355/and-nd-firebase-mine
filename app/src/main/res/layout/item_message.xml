@@ -22,7 +22,7 @@
         tools:text="Message" />
 
     <TextView
-        android:id="@+id/nameTextView"
+        android:id="@+id/restaurantName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"

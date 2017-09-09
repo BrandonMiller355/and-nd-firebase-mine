@@ -33,6 +33,7 @@ public class RestaurantFragment extends Fragment {
     private static final String TAG = RestaurantFragment.class.getSimpleName();
 
     public static String ARG_RESTAURANT_ID = "restaurantId";
+    public static String ARG_CATEGORY = "category";
     public static String ARG_CATEGORIES_LIST = "categories";
 
     private FirebaseDatabase mFirebaseDatabase;
@@ -41,6 +42,8 @@ public class RestaurantFragment extends Fragment {
     @BindView(R.id.name) EditText name;
     @BindView(R.id.category) Spinner category;
 
+    private String getArgRestaurantId = "";
+    private String getArgCategoryId = "";
 
     //TODO: Brandon - see if I need this or not
 //    // Firebase instance variables.
@@ -51,10 +54,11 @@ public class RestaurantFragment extends Fragment {
     public RestaurantFragment() {
     }
 
-    public static RestaurantFragment newInstance(String restaurantId, List<String> categories) {
+    public static RestaurantFragment newInstance(String restaurantId, String categoryId, List<String> categories) {
         RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
         args.putString(ARG_RESTAURANT_ID, restaurantId);
+        args.putString(ARG_CATEGORY, categoryId);
         args.putString(ARG_CATEGORIES_LIST, new Gson().toJson(categories));
         fragment.setArguments(args);
         return fragment;
@@ -78,32 +82,35 @@ public class RestaurantFragment extends Fragment {
 
         mRestaurantsDatabaseReference = mFirebaseDatabase.getReference().child("restaurants");
 
-        //TODO: Brandon - populate this from categories from db. Change these in Settings?
         List<String> categories = (List<String>)Arrays.asList(getArguments().getSerializable(ARG_CATEGORIES_LIST).toString().split("\\s*\",\"\\s*"));
         categories.set(0, categories.get(0).replace("[", "").replace("\"", ""));
         categories.set(categories.size()-1, categories.get(categories.size()-1).replace("]", "").replace("\"", ""));
+
+        getArgCategoryId = getArguments().getString(ARG_CATEGORY);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_item,
                 categories);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-//        //Find TextView control
-//        AutoCompleteTextView acTextView = (AutoCompleteTextView) view.findViewById(R.id.category);
-//        //Set the number of characters the user must type before the drop down list is shown
-//        acTextView.setThreshold(1);
-//        acTextView.showDropDown();
-//        //Set the adapter
-//        acTextView.setAdapter(adapter);
+        //TODO: Ideally, they could enter a new category here directly
 
         MaterialSpinner spinner = (MaterialSpinner) view.findViewById(R.id.category);
         spinner.setAdapter(adapter);
 
+        //TODO: Brandon - this
+//        if (categoryId != null) {
+//            spinner.setSelection(getPositionOfgetArgCategoryId());
+//        }
 
-
-        name.requestFocus();
-        InputMethodManager imm = (InputMethodManager)view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(view, 0);
+        //TODO: Brandon - keep this?
+        if (getArgRestaurantId != null) {
+            name.setText(getArgRestaurantId);
+        } else {
+            name.requestFocus();
+            InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(view, 0);
+        }
 //
 //        view.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
