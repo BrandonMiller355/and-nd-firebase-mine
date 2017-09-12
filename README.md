@@ -24,3 +24,4 @@ See [LICENSE](LICENSE)
  - Add voting system
  - Add ability to have app recommend places that haven't been chosen in a long time
  - Save the category ID instead of the category name
+ - Integrate with Yelp API

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -37,13 +38,15 @@ public class RestaurantsAdapter extends ArrayAdapter<Restaurant> {
         ButterKnife.bind(this, convertView);
 
         convertView.setClickable(true);
-        convertView.setOnClickListener(new AdapterView.OnItemClickListener() {
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+//TODO: Brandon - get this working
+//        convertView.setOnClickListener(new OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
 
 //        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
 //        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
