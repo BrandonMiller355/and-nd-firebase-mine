@@ -10,11 +10,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ListView
-        android:id="@+id/listview_restaurants"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview_restaurants"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_restaurant" />
+        android:scrollbars="vertical" />
+    <!--tools:listitem="@layout/item_restaurant"-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_add_restaurant"
@@ -23,7 +24,7 @@
         android:layout_gravity="bottom|right"
         android:layout_margin="16dp"
         android:src="@drawable/ic_add_black_24dp"
-        app:layout_anchor="@id/listview_restaurants"
+        app:layout_anchor="@id/recyclerview_restaurants"
         app:layout_anchorGravity="bottom|right|end" />
     <!--app:fabSize="normal"-->
 
